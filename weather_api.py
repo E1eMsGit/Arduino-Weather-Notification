@@ -8,7 +8,7 @@ class WeatherApi(object):
     connection_flag = None
 
     def __init__(self):
-        self.key = ' ' # API Key wunderground.com
+        self.key = ' '  # API key wunderground.com
         self.api_url = 'http://api.wunderground.com/api/' + self.key + \
                        '/forecast/q/pws:IMOSKVA645.json'
         self.days = {
@@ -23,7 +23,6 @@ class WeatherApi(object):
         Обрабатывает json файл
         :return: день, температуру, параметры ветра, вероятность осадков
         """
-        days = self.days
         try:
             req = requests.get(self.api_url)
             forecast = req.json()
@@ -46,7 +45,7 @@ class WeatherApi(object):
             pop = str(pop_value) + " %"
 
             return (str(date_day_value), str(date_month_value), str(date_year_value),
-                    days.get(weekday_value), temp, wind, pop, pop_value)
+                    self.days.get(weekday_value), temp, wind, pop, pop_value)
 
         except requests.ConnectionError:
             WeatherApi.connection_error_flag = True
