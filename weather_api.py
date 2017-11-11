@@ -34,7 +34,7 @@ class WeatherApi(object):
             pop_value = forecast['forecast']['simpleforecast']['forecastday'][0]['pop']
 
             temp = str(temp_low_value) + " - " + str(temp_high_value) + " °C"
-            wind = (str(wind_low_value) + " - " + str(wind_high_value) + " км/ч" +
+            wind = (str(wind_low_value) + " - " + str(wind_high_value) + " km/h" +
                     " (" + wind_dir_value + ")")
             pop = str(pop_value) + " %"
 
