@@ -8,15 +8,9 @@ class WeatherApi(object):
     connection_flag = None
 
     def __init__(self):
-        self.key = ' '  # API key wunderground.com
+        self.key = ''  # API key wunderground.com
         self.api_url = 'http://api.wunderground.com/api/' + self.key + \
                        '/forecast/q/pws:IMOSKVA645.json'
-        self.days = {
-            "Monday": "Понедельник", "Tuesday": "Вторник",
-            "Wednesday": "Среда", "Thursday": "Четверг",
-            "Friday": "Пятница", "Saturday": "Суббота",
-            "Sunday": "Воскресенье",
-        }
 
     def check_weather(self):
         """
@@ -45,11 +39,11 @@ class WeatherApi(object):
             pop = str(pop_value) + " %"
 
             return (str(date_day_value), str(date_month_value), str(date_year_value),
-                    self.days.get(weekday_value), temp, wind, pop, pop_value)
+                    weekday_value, temp, wind, pop, pop_value)
 
         except requests.ConnectionError:
             WeatherApi.connection_error_flag = True
-            return "-", "-", "-", "Отсутствует соединение", "-", "-", "-", "-"
+            return "-", "-", "-", "No connection", "-", "-", "-", "-"
 
 
 if __name__ == "__main__":

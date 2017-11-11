@@ -6,7 +6,7 @@ from glob import glob
 from pyfirmata import Arduino, OUTPUT
 
 
-class WeatherCube(object):
+class ArduinoBoard(object):
     """
     Класс Технокуба
     """

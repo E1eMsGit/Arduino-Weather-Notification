@@ -16,7 +16,7 @@ class MainWindow(QtWidgets.QWidget):
 
         self.setFixedSize(400, 300)
 
-        ico = QtGui.QIcon(os.path.join("icons", "WeatherCube-icon.png"))
+        ico = QtGui.QIcon(os.path.join("icons", "arduino_weather_notification.png"))
         self.setWindowIcon(ico)
 
         # Страницы для QStackedWidget.
@@ -43,10 +43,10 @@ class MainWindow(QtWidgets.QWidget):
         Страница подключения к СОМ порту.
         :return:
         """
-        lbl_cube = QtWidgets.QLabel("<b>К какому порту подключен куб?</b>",
+        lbl_cube = QtWidgets.QLabel("<b>Which port Arduino connection?</b>",
                                     alignment=QtCore.Qt.AlignCenter)
         list_box = QtWidgets.QListWidget()
-        btn_connect = QtWidgets.QPushButton("&Соединить")
+        btn_connect = QtWidgets.QPushButton("&Connect")
         self.serial_ports_views(list_box)
 
         vertical_layout = QtWidgets.QVBoxLayout()
@@ -64,10 +64,10 @@ class MainWindow(QtWidgets.QWidget):
         Страница главного меню приложения.
         :return:
         """
-        btn_weather = QtWidgets.QPushButton("&Погода")
+        btn_weather = QtWidgets.QPushButton("&Weather")
         btn_weather.setSizePolicy(QtWidgets.QSizePolicy.Minimum,
                                   QtWidgets.QSizePolicy.Expanding)
-        btn_manual = QtWidgets.QPushButton("&Ручное управление")
+        btn_manual = QtWidgets.QPushButton("&Manual")
         btn_manual.setSizePolicy(QtWidgets.QSizePolicy.Minimum,
                                  QtWidgets.QSizePolicy.Expanding)
 
@@ -97,12 +97,12 @@ class MainWindow(QtWidgets.QWidget):
         lbl_weekday = QtWidgets.QLabel("<b>" + weather_data[3] + "</b>",
                                        alignment=QtCore.Qt.AlignCenter)
         lbl_temp = QtWidgets.QLabel(
-            "<b>Температура: " + weather_data[4] + "</b>")
-        lbl_wind = QtWidgets.QLabel("<b>Ветер: " + weather_data[5] + "</b>")
+            "<b>Temperature: " + weather_data[4] + "</b>")
+        lbl_wind = QtWidgets.QLabel("<b>Wind: " + weather_data[5] + "</b>")
         lbl_pop = QtWidgets.QLabel(
-            "<b>Вероятность осадков: " + weather_data[6] + "</b>")
+            "<b>Probability of Precipitation: " + weather_data[6] + "</b>")
 
-        btn_back = QtWidgets.QPushButton("&Назад")
+        btn_back = QtWidgets.QPushButton("&Back")
         horizontal_spacer = QtWidgets.QSpacerItem(40, 20,
                                                   QtWidgets.QSizePolicy.Expanding)
 
@@ -133,16 +133,16 @@ class MainWindow(QtWidgets.QWidget):
         Страница для ручного управления кубом.
         :return:
         """
-        btn_green = QtWidgets.QPushButton("&Зеленый")
+        btn_green = QtWidgets.QPushButton("&Green")
         btn_green.setSizePolicy(QtWidgets.QSizePolicy.Minimum,
                                 QtWidgets.QSizePolicy.Expanding)
-        btn_red = QtWidgets.QPushButton("&Красный")
+        btn_red = QtWidgets.QPushButton("&Red")
         btn_red.setSizePolicy(QtWidgets.QSizePolicy.Minimum,
                               QtWidgets.QSizePolicy.Expanding)
-        btn_blink = QtWidgets.QPushButton("&Мерцание")
+        btn_blink = QtWidgets.QPushButton("&Blink")
         btn_blink.setSizePolicy(QtWidgets.QSizePolicy.Minimum,
                                 QtWidgets.QSizePolicy.Expanding)
-        btn_back = QtWidgets.QPushButton("&Назад")
+        btn_back = QtWidgets.QPushButton("&Back")
         horizontal_spacer = QtWidgets.QSpacerItem(40, 20,
                                                   QtWidgets.QSizePolicy.Expanding)
 
@@ -174,7 +174,7 @@ class MainWindow(QtWidgets.QWidget):
         """
         result = QtWidgets.QMessageBox.question(self,
                                                 self.windowTitle(),
-                                                "Вы действительно хотите закрыть программу?",
+                                                "Are you sure you want to exit?",
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
                                                 QtWidgets.QMessageBox.No)
         if result == QtWidgets.QMessageBox.Yes:
@@ -201,8 +201,8 @@ class MainWindow(QtWidgets.QWidget):
         """
         if self.weather.connection_error_flag:
             QtWidgets.QMessageBox.warning(self, self.windowTitle(),
-                                          "Отсутствует подключение к интернету.\n"
-                                          "Погодные данные отображаться не будут.",
+                                          "No internet connection.\n"
+                                          "Weather data will be not showing.",
                                           QtWidgets.QMessageBox.Ok)
 
     @QtCore.pyqtSlot(int)
@@ -241,7 +241,7 @@ class MainWindow(QtWidgets.QWidget):
         """
         if self.port is None:
             QtWidgets.QMessageBox.warning(self, self.windowTitle(),
-                                          "Выберите к какому порту подключен куб!",
+                                          "Select Arduino port!",
                                           QtWidgets.QMessageBox.Ok)
         else:
             self.device.connect(self.port)

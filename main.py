@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtWidgets
 
 from form import MainWindow
-from device import WeatherCube
+from device import ArduinoBoard
 from weather_api import WeatherApi
 
 
@@ -13,14 +13,15 @@ def main():
     :return:
     """
     app = QtWidgets.QApplication(sys.argv)
-    device = WeatherCube()
+    device = ArduinoBoard()
     weather = WeatherApi()
     window = MainWindow(device, weather)
 
-    window.setWindowTitle("Погодный куб")
+    window.setWindowTitle("Weather Notification")
     window.show()
 
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()
