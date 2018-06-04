@@ -54,7 +54,7 @@ class MainWindow(QtWidgets.QWidget):
         btn_connect = QtWidgets.QPushButton("&Connect")
         self.serial_ports_views(list_box)
 
-        horizontal_spacer = QtWidgets.QSpacerItem(90, 20,
+        horizontal_spacer = QtWidgets.QSpacerItem(140, 20,
                                                   QtWidgets.QSizePolicy.Minimum,
                                                   QtWidgets.QSizePolicy.Expanding)
 
