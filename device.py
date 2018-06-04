@@ -1,12 +1,18 @@
-import platform
 import itertools
-
-from time import sleep
+import platform
 from glob import glob
+from time import sleep
+
 from pyfirmata import Arduino, OUTPUT
 
+try:
+    # Windows only.
+    import winreg
+except ImportError:
+    pass
 
-class ArduinoBoard(object):
+
+class Device(object):
     """
     Класс Технокуба
     """
@@ -34,8 +40,6 @@ class ArduinoBoard(object):
         Поиск доступных СОМ портов для Windows
         :return:
         """
-        import winreg
-
         path = 'HARDWARE\DEVICEMAP\SERIALCOMM'
         try:
             key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, path)
@@ -83,6 +87,9 @@ class ArduinoBoard(object):
             return
         self._write_pins(self.red_pins, 0)
         self._write_pins(self.green_pins, 0)
+
+    def is_connected(self):
+        return True if self.board is not None else False
 
 
 if __name__ == "__main__":

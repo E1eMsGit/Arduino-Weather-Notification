@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtWidgets
 
 from form import MainWindow
-from device import ArduinoBoard
+from device import Device
 from weather_api import WeatherApi
 
 
@@ -13,7 +13,7 @@ def main():
     :return:
     """
     app = QtWidgets.QApplication(sys.argv)
-    device = ArduinoBoard()
+    device = Device()
     weather = WeatherApi()
     window = MainWindow(device, weather)
 

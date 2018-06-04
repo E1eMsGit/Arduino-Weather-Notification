@@ -43,14 +43,28 @@ class MainWindow(QtWidgets.QWidget):
         Страница подключения к СОМ порту.
         :return:
         """
-        lbl_cube = QtWidgets.QLabel("<b>Which port Arduino connection?</b>",
+        lbl_select = QtWidgets.QLabel("<b>Which port device connection?</b>",
                                     alignment=QtCore.Qt.AlignCenter)
+
+        btn_refresh = QtWidgets.QPushButton(
+            QtGui.QIcon(os.path.join("icons", "refresh.png")), None)
+        btn_refresh.setToolTip("Refresh")
+
         list_box = QtWidgets.QListWidget()
         btn_connect = QtWidgets.QPushButton("&Connect")
         self.serial_ports_views(list_box)
 
+        horizontal_spacer = QtWidgets.QSpacerItem(90, 20,
+                                                  QtWidgets.QSizePolicy.Minimum,
+                                                  QtWidgets.QSizePolicy.Expanding)
+
+        horizontal_layout_top = QtWidgets.QHBoxLayout()
+        horizontal_layout_top.addWidget(lbl_select)
+        horizontal_layout_top.addSpacerItem(horizontal_spacer)
+        horizontal_layout_top.addWidget(btn_refresh)
+
         vertical_layout = QtWidgets.QVBoxLayout()
-        vertical_layout.addWidget(lbl_cube)
+        vertical_layout.addLayout(horizontal_layout_top)
         vertical_layout.addWidget(list_box)
         vertical_layout.addWidget(btn_connect)
 
@@ -58,6 +72,8 @@ class MainWindow(QtWidgets.QWidget):
 
         list_box.itemClicked.connect(self.on_item_clicked)
         btn_connect.clicked.connect(self.on_connect_button)
+        btn_refresh.clicked.connect(
+            lambda: self.serial_ports_views(list_box))
 
     def menu_page(self):
         """
@@ -178,12 +194,14 @@ class MainWindow(QtWidgets.QWidget):
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
                                                 QtWidgets.QMessageBox.No)
         if result == QtWidgets.QMessageBox.Yes:
-            self.device.disconnect()
+            if self.device.is_connected():
+                self.device.disconnect()
             e.accept()
             QtWidgets.QWidget.closeEvent(self, e)
         else:
             e.ignore()
 
+    @QtCore.pyqtSlot()
     def serial_ports_views(self, list_box):
         """
         Заполнение List Widget списком доступных портов.
@@ -191,8 +209,14 @@ class MainWindow(QtWidgets.QWidget):
         :return:
         """
         ports = self.device.discover()
+        list_box.clear()
+
         for port in ports:
             list_box.addItem(port)
+
+        if list_box.count() > 0:
+            list_box.setCurrentItem(list_box.item(0))
+            self.port = list_box.item(0).text()
 
     def check_internet_connection(self):
         """
