@@ -1,4 +1,5 @@
 import os
+
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 
@@ -44,7 +45,7 @@ class MainWindow(QtWidgets.QWidget):
         :return:
         """
         lbl_select = QtWidgets.QLabel("<b>Which port device connection?</b>",
-                                    alignment=QtCore.Qt.AlignCenter)
+                                      alignment=QtCore.Qt.AlignCenter)
 
         btn_refresh = QtWidgets.QPushButton(
             QtGui.QIcon(os.path.join("icons", "refresh.png")), None)
@@ -195,7 +196,7 @@ class MainWindow(QtWidgets.QWidget):
                                                 QtWidgets.QMessageBox.No)
         if result == QtWidgets.QMessageBox.Yes:
             if self.device.is_connected():
-                self.device.disconnect()
+                self.device.turn_leds_off()
             e.accept()
             QtWidgets.QWidget.closeEvent(self, e)
         else:
@@ -240,7 +241,7 @@ class MainWindow(QtWidgets.QWidget):
             self.connect_page()
         elif index == 1:
             self.menu_page()
-            self.device.disconnect()
+            self.device.turn_leds_off()
         elif index == 2:
             self.weather_page()
         elif index == 3:
@@ -265,7 +266,7 @@ class MainWindow(QtWidgets.QWidget):
         """
         if self.port is None:
             QtWidgets.QMessageBox.warning(self, self.windowTitle(),
-                                          "Select Arduino port!",
+                                          "Select device port!",
                                           QtWidgets.QMessageBox.Ok)
         else:
             self.device.connect(self.port)

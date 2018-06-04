@@ -82,7 +82,7 @@ class Device(object):
         for p in self.green_pins + self.red_pins:
             self.board.digital[p].mode = OUTPUT
 
-    def disconnect(self):
+    def turn_leds_off(self):
         if not self.board:
             return
         self._write_pins(self.red_pins, 0)
