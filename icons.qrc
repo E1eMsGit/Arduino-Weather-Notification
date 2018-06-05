@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/images">
+    <file alias='refresh.png'>icons/refresh.png</file>
+    <file alias='arduino_weather_notification.png'>icons/arduino_weather_notification.png</file>
+  </qresource>
+</RCC>

@@ -1,6 +1,6 @@
-import os
+from PyQt5 import QtWidgets, QtGui
 
-from PyQt5 import QtCore, QtWidgets, QtGui
+from icons import *
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -17,8 +17,7 @@ class MainWindow(QtWidgets.QWidget):
 
         self.setFixedSize(400, 300)
 
-        ico = QtGui.QIcon(os.path.join("icons", "arduino_weather_notification.png"))
-        self.setWindowIcon(ico)
+        self.setWindowIcon(QtGui.QIcon(":/images/arduino_weather_notification.png"))
 
         # Страницы для QStackedWidget.
         self.stack_connect = QtWidgets.QWidget()
@@ -48,7 +47,7 @@ class MainWindow(QtWidgets.QWidget):
                                       alignment=QtCore.Qt.AlignCenter)
 
         btn_refresh = QtWidgets.QPushButton(
-            QtGui.QIcon(os.path.join("icons", "refresh.png")), None)
+            QtGui.QIcon(":/images/refresh.png"), None)
         btn_refresh.setToolTip("Refresh")
 
         list_box = QtWidgets.QListWidget()

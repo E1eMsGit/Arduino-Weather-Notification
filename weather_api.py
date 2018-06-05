@@ -8,7 +8,7 @@ class WeatherApi(object):
     connection_flag = None
 
     def __init__(self):
-        self.key = ''  # API key wunderground.com
+        self.key = '49daecf3d24b0b67'  # API key wunderground.com
         self.api_url = 'http://api.wunderground.com/api/' + self.key + \
                        '/forecast/q/pws:IMOSKVA645.json'
 
